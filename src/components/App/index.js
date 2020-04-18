@@ -1,13 +1,17 @@
 import React from 'react';
-
 import Shelf from '../Shelf';
 import Filter from '../Shelf/Filter';
-import GithubCorner from '../github/Corner';
 import FloatCart from '../FloatCart';
+import Navbar from '../Navbar';
+import { BrowserRouter } from 'react-router-dom';
 
 const App = () => (
   <React.Fragment>
-    <GithubCorner />
+    <BrowserRouter>
+      <div className="App">
+        <Navbar/>
+      </div>
+    </BrowserRouter>
     <main>
       <Filter />
       <Shelf />

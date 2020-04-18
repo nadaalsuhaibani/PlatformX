@@ -4,11 +4,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { updateFilters } from '../../../services/filters/actions';
 import Checkbox from '../../Checkbox';
-import GithubStarButton from '../../github/StarButton';
+import Selectbox from '../../Selectbox';
 
 import './style.scss';
 
 const availableSizes = ['XS', 'S', 'M', 'ML', 'L', 'XL', 'XXL'];
+const availableBrands = ['brand1', 'brand2', 'brand3'];
+const seasons = [
+  { value: '', label: 'Select' },
+  { value: 'summer', label: 'Summer' },
+  { value: 'winter', label: 'Winter' },
+  { value: 'all', label: 'All seasons' }
+];
 
 class Filter extends Component {
   static propTypes = {
@@ -39,14 +46,26 @@ class Filter extends Component {
     />
   );
 
-  createCheckboxes = () => availableSizes.map(this.createCheckbox);
+  createSizeCheckboxes = () => availableSizes.map(this.createCheckbox);
+  createBrandCheckboxes = () => availableBrands.map(this.createCheckbox);
+
+  createSeasonSelect () {
+    return (
+      <div className="sort">
+        <Selectbox options={seasons} />
+      </div>
+    )
+  }
 
   render() {
     return (
       <div className="filters">
         <h4 className="title">Sizes:</h4>
-        {this.createCheckboxes()}
-        <GithubStarButton />
+        {this.createSizeCheckboxes()}
+        <h4 className="title">Brands:</h4>
+        {this.createBrandCheckboxes()}
+        <h4 className="title">Season:</h4>
+        {this.createSeasonSelect()}
       </div>
     );
   }

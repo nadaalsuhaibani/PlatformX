@@ -38,7 +38,7 @@ const Product = ({ product, addProduct }) => {
       )}
       <Thumb
         classes="shelf-item__thumb"
-        src={require(`../../../../static/products/${product.sku}_1.jpg`)}
+        src='https://via.placeholder.com/300.png'
         alt={product.title}
       />
       <p className="shelf-item__title">{product.title}</p>
