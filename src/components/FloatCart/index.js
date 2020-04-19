@@ -149,43 +149,30 @@ class FloatCart extends Component {
             <span className="bag">
               <span className="bag__quantity">{cartTotal.productQuantity}</span>
             </span>
-            <span className="header-title">Cart</span>
+            <span className="header-title">FAVORITE</span>
           </div>
 
           <div className="float-cart__shelf-container">
             {products}
             {!products.length && (
               <p className="shelf-empty">
-                Add some products in the cart <br />
-                :)
+          empty <br />
               </p>
             )}
           </div>
 
-          <div className="float-cart__footer">
+          <div  className="float-cart__footer">
             <div className="sub">SUBTOTAL</div>
             <div className="sub-price">
-              <p className="sub-price__val">
-                {`${cartTotal.currencyFormat} ${formatPrice(
+              <p className="sub-price__val">SAR
+                {` ${formatPrice(
                   cartTotal.totalPrice,
                   cartTotal.currencyId
                 )}`}
               </p>
-              <small className="sub-price__installment">
-                {!!cartTotal.installments && (
-                  <span>
-                    {`OR UP TO ${cartTotal.installments} x ${
-                      cartTotal.currencyFormat
-                    } ${formatPrice(
-                      cartTotal.totalPrice / cartTotal.installments,
-                      cartTotal.currencyId
-                    )}`}
-                  </span>
-                )}
-              </small>
             </div>
             <div onClick={() => this.proceedToCheckout()} className="buy-btn">
-              Checkout
+              DETAILS
             </div>
           </div>
         </div>
