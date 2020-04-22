@@ -5,7 +5,7 @@ import heartIcon from '../../../../static/heartIcon.png';
 import Thumb from '../../../Thumb';
 import { formatPrice } from '../../../../services/util';
 import { addProduct } from '../../../../services/cart/actions';
-import { Link } from 'react-router-dom';
+
 
 const Product = ({ product, addProduct }) => {
   product.quantity = 1;
