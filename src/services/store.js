@@ -1,20 +1,21 @@
 import { compose, createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import reduxThunk from 'redux-thunk';
 import rootReducer from './reducers';
+import { reactReduxFirebase } from "react-redux-firebase";
+import  firebase from "../components/Firestore";
 
 export default initialState => {
   initialState =
     JSON.parse(window.localStorage.getItem('state')) || initialState;
-  const middleware = [thunk];
 
-  const store = createStore(
+
+  const createStoreWithFirebase = compose(reactReduxFirebase(firebase))(createStore);
+  const store = createStoreWithFirebase(
     rootReducer,
     initialState,
-    compose(
-      applyMiddleware(...middleware)
+      applyMiddleware(reduxThunk)
       /* window.__REDUX_DEVTOOLS_EXTENSION__ &&
         window.__REDUX_DEVTOOLS_EXTENSION__() */
-    )
   );
 
   store.subscribe(() => {
