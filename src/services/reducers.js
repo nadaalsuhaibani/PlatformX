@@ -6,8 +6,10 @@ import filtersReducer from './filters/reducer';
 import sortReducer from './sort/reducer';
 
 import authReducer from "./auth";
-import { firebaseReducer } from "react-redux-firebase";
+import firebaseReducer from "react-redux-firebase";
+import 'firebase/firestore'
 import apiStatusReducer from "./apiStatus";
+import firestoreReducer from 'redux-firestore'
 
 export default combineReducers({
   shelf: shelfReducer,
@@ -15,7 +17,8 @@ export default combineReducers({
   total: totalReducer,
   filters: filtersReducer,
   sort: sortReducer,
-  firebaseReducer,
+  firebase: firebaseReducer,
+  firestore: firestoreReducer,
   authReducer,
   apiStatusReducer
 });

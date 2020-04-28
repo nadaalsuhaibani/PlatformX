@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import { signout } from "../services/login/auth";
 import {connect} from "react-redux";
 import {compose} from "redux";
+import {firebaseConnect} from "react-redux-firebase";
 
 class Navbar extends Component {
 

@@ -1,4 +1,4 @@
-import  firebase from "../../components/Firestore";
+import  firebase from "../../Firestore";
 import {
   SIGNUP_SUCCESS,
   SIGNUP_ERROR,
@@ -13,7 +13,7 @@ import {
 import { beginApiCall, apiCallError } from "./apiStatus";
 
 // Signing up with Firebase
-export const signup = (email, password) => async dispatch => {
+export const signup = (email, password, fname) => async dispatch => {
   try {
     dispatch(beginApiCall());
     firebase
@@ -27,7 +27,9 @@ export const signup = (email, password) => async dispatch => {
       .then(dataAfterEmail => {
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
-            // Sign up successful
+            firebase.db.collection("users").doc(user.uid).set({
+              fname: fname
+            });
             dispatch({
               type: SIGNUP_SUCCESS,
               payload:

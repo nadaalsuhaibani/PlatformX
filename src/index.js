@@ -7,9 +7,28 @@ import Root from './Root';
 
 import './index.scss';
 
+import store from "./services/store";
+import createFirestoreInstance from "redux-firestore";
+import ReactReduxFirebaseProvider from "react-redux-firebase";
+import firebase from "./Firestore";
+
+const rrfConfig = {
+  userProfile: "users",
+  useFirestoreForProfile: true,
+};
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance, //since we are using Firestore
+};
+
 ReactDOM.render(
   <Root>
+    <ReactReduxFirebaseProvider {...rrfProps}>
     <App />
+    </ReactReduxFirebaseProvider>
   </Root>,
   document.getElementById('root')
 );

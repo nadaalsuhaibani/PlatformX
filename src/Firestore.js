@@ -2,6 +2,7 @@
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
+import 'firebase/firestore';
 
 
 // var admin = require("firebase-admin");
@@ -27,5 +28,4 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Finally, export it to use it throughout your app
 export default firebase;
