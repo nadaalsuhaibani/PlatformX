@@ -1,11 +1,16 @@
 import { combineReducers } from 'redux';
+import { firebaseReducer } from 'react-redux-firebase'
+import {firestoreReducer } from 'redux-firestore'
 import shelfReducer from './shelf/reducer';
 import cartReducer from './cart/reducer';
 import totalReducer from './total/reducer';
 import filtersReducer from './filters/reducer';
 import sortReducer from './sort/reducer';
 
-export default combineReducers({
+
+export const rootReducer = combineReducers({
+  firebase: firebaseReducer,
+  firestore: firestoreReducer,
   shelf: shelfReducer,
   cart: cartReducer,
   total: totalReducer,
