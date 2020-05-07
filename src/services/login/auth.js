@@ -1,4 +1,5 @@
-import  firebase from "../../Firestore";
+
+import { useFirebase, useFirestore } from "react-redux-firebase";
 import {
   SIGNUP_SUCCESS,
   SIGNUP_ERROR,
@@ -11,9 +12,10 @@ import {
   RESET_ERROR
 } from "./actionTypes";
 import { beginApiCall, apiCallError } from "./apiStatus";
+import firebase from "../../Firestore";
 
 // Signing up with Firebase
-export const signup = (email, password, fname) => async dispatch => {
+export const signup = (email, password) => async dispatch => {
   try {
     dispatch(beginApiCall());
     firebase
@@ -27,8 +29,8 @@ export const signup = (email, password, fname) => async dispatch => {
       .then(dataAfterEmail => {
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
-            firebase.db.collection("users").doc(user.uid).set({
-              fname: fname
+            firebase.firestore().collection("users").doc(user.uid).set({
+              fname: "hi"
             });
             dispatch({
               type: SIGNUP_SUCCESS,
@@ -74,6 +76,7 @@ export const signin = (email, password, callback) => async dispatch => {
         if (data.user.emailVerified) {
           console.log("IF", data.user.emailVerified);
           dispatch({ type: SIGNIN_SUCCESS });
+          console.log('after dispatch');
           callback();
         } else {
           console.log("ELSE", data.user.emailVerified);

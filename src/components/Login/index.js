@@ -26,7 +26,7 @@ import './index.scss';
   function login() {
     if (newUser) {
       // signup
-      signup(credentials.email, credentials.password, credentials.fname);
+      signup(credentials.email, credentials.password);
     } else {
       if (reset) {
         // reset password
@@ -90,35 +90,6 @@ import './index.scss';
           </div>
         )}
 
-        {/* First Name */}
-        {!reset && newUser && (
-        <div className="input-group">
-          <label htmlFor="fname">First Name</label>
-          <input
-            type="text"
-            id="fname"
-            name="fname"
-            value={credentials.fname}
-            placeholder="Your First Name"
-            onChange={handleChange}
-          />
-        </div>
-        )}
-
-        {/* Last Name */}
-        {!reset && newUser && (
-        <div className="input-group">
-          <label htmlFor="lname">Last Name</label>
-          <input
-            type="text"
-            id="lname"
-            name="lname"
-            placeholder="Your Last Name"
-            onChange={handleChange}
-          />
-        </div>
-        )}
-
         {/* BUTTONS */}
         <div>
           <button type="submit" className="btn-login">
@@ -172,7 +143,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    signup: (email, password, fname) => dispatch(signup(email, password, fname)),
+    signup: (email, password) => dispatch(signup(email, password)),
     signin: (email, password, callback) =>
       dispatch(signin(email, password, callback)),
     resetPassword: email => dispatch(resetPassword(email))

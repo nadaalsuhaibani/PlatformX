@@ -8,9 +8,10 @@ import Root from './Root';
 import './index.scss';
 
 import store from "./services/store";
-import createFirestoreInstance from "redux-firestore";
-import ReactReduxFirebaseProvider from "react-redux-firebase";
+import {createFirestoreInstance} from "redux-firestore";
+import {ReactReduxFirebaseProvider} from "react-redux-firebase";
 import firebase from "./Firestore";
+import {BrowserRouter as Router} from "react-router-dom";
 
 const rrfConfig = {
   userProfile: "users",
@@ -25,10 +26,12 @@ const rrfProps = {
 };
 
 ReactDOM.render(
-  <Root>
-    <ReactReduxFirebaseProvider {...rrfProps}>
-    <App />
-    </ReactReduxFirebaseProvider>
-  </Root>,
-  document.getElementById('root')
+      <Root>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <Router>
+          <App />
+          </Router>
+      </ReactReduxFirebaseProvider>
+      </Root>,
+  document.getElementById("root")
 );
