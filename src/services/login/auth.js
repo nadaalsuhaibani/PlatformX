@@ -99,33 +99,6 @@ export const signin = (email, password, callback) => async dispatch => {
   }
 };
 
-// Signing out with Firebase
-export const signout = () => async dispatch => {
-  try {
-    console.log("beginning logout");
-    dispatch(beginApiCall());
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        dispatch({ type: SIGNOUT_SUCCESS });
-      })
-      .catch(() => {
-        dispatch(apiCallError());
-        dispatch({
-          type: SIGNOUT_ERROR,
-          payload: "Error, we were not able to log you out. Please try again."
-        });
-      });
-  } catch (err) {
-    dispatch(apiCallError());
-    dispatch({
-      type: SIGNOUT_ERROR,
-      payload: "Error, we were not able to log you out. Please try again."
-    });
-  }
-};
-
 // Reset password with Firebase
 export const resetPassword = email => async dispatch => {
   try {

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
-import { signout } from "../services/login/auth";
-import {connect} from "react-redux";
 import { isLoaded, isEmpty, useFirebase } from 'react-redux-firebase';
 import { useSelector } from 'react-redux'
 
