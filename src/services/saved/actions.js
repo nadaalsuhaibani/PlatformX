@@ -1,12 +1,12 @@
-import { LOAD_CART, ADD_PRODUCT_TO_CART, REMOVE_PRODUCT, CHANGE_PRODUCT_QUANTITY } from './actionTypes';
+import { LOAD_SAVED, ADD_PRODUCT_TO_SAVED, REMOVE_PRODUCT, CHANGE_PRODUCT_QUANTITY } from './actionTypes';
 
-export const loadCart = products => ({
-  type: LOAD_CART,
+export const loadSaved = products => ({
+  type: LOAD_SAVED,
   payload: products
 });
 
-export const addProductToCart = product => ({
-  type: ADD_PRODUCT_TO_CART,
+export const addProductToSaved = product => ({
+  type: ADD_PRODUCT_TO_SAVED,
   payload: product
 });
 

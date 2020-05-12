@@ -1,4 +1,4 @@
-.float-cart {
+.float-saved {
   position: fixed;
   top: 0;
   right: -450px;
@@ -37,17 +37,18 @@
     display: inline-block;
     vertical-align: middle;
     margin-right: 15px;
-    background-image: url('../../static/bag-icon.png');
+    background-image: url('../../static/fave-cart.png');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
 
-    &--float-cart-closed {
+    &--float-saved-closed {
       position: absolute;
       background-color: #000;
       background-size: 50%;
-      left: -60px;
       width: 60px;
+      right: 60px;
+      left: -120px;
       height: 60px;
       cursor: pointer;
 
@@ -266,19 +267,19 @@
 
 /* MAC scrollbar para desktop*/
 @media screen and (min-width: 640px) {
-  .float-cart__content::-webkit-scrollbar {
+  .float-saved__content::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 10px;
     background-color: rgba(0, 0, 0, 0.2);
     padding: 10px;
   }
-  .float-cart__content::-webkit-scrollbar-thumb {
+  .float-saved__content::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: #0c0b10;
   }
 }
 
-.float-cart__content {
+.float-saved__content {
   height: 100%;
   overflow-y: scroll;
 }

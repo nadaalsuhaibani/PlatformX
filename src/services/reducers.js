@@ -3,6 +3,7 @@ import { firebaseReducer } from 'react-redux-firebase'
 import {firestoreReducer } from 'redux-firestore'
 import shelfReducer from './shelf/reducer';
 import cartReducer from './cart/reducer';
+import savedReducer from './saved/reducer';
 import totalReducer from './total/reducer';
 import filtersReducer from './filters/reducer';
 import sortReducer from './sort/reducer';
@@ -12,6 +13,7 @@ import apiStatusReducer from "./apiStatus";
 export default combineReducers({
   shelf: shelfReducer,
   cart: cartReducer,
+  saved: savedReducer,
   total: totalReducer,
   filters: filtersReducer,
   sort: sortReducer,

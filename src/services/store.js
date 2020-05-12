@@ -16,7 +16,8 @@ store.subscribe(() => {
   const state = store.getState();
   const persist = {
     cart: state.cart,
-    total: state.total
+    total: state.total,
+    saved: state.saved,
   };
 
   window.localStorage.setItem('state', JSON.stringify(persist));

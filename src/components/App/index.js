@@ -2,6 +2,7 @@ import React from 'react';
 import Shelf from '../Shelf';
 import Filter from '../Shelf/Filter';
 import FloatCart from '../FloatCart';
+import FloatSavedItems from '../FloatSavedItems';
 import Navbar from '../Navbar';
 import { Route, Switch} from 'react-router-dom';
 import Login from "../Login";
@@ -17,6 +18,7 @@ const App = () => (
               <Filter />
               <Shelf />
             </main>
+            <FloatSavedItems />
             <FloatCart />
           </div>
         </Route>
