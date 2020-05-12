@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux'
 
 import { fetchProducts } from '../../services/shelf/actions';
 
@@ -74,13 +76,21 @@ class Shelf extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  products: state.shelf.products,
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchProducts: (id) => { dispatch(fetchProducts(id))}
+  }
+ }
+const mapStateToProps = (state )=> {
+  //const product5= state.firestore.ordered.products
+   console.log(state);
+  return{
+  products: state.firestore.ordered.products,
   filters: state.filters.items,
   sort: state.sort.type
-});
+}}
 
-export default connect(
-  mapStateToProps,
-  { fetchProducts }
-)(Shelf);
+export default  compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect()
+ )(Shelf);

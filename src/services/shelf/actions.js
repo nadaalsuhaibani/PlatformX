@@ -1,11 +1,14 @@
 import { FETCH_PRODUCTS } from './actionTypes';
+import { getFirestore } from 'redux-firestore'
+
 import axios from 'axios';
 import { productsAPI } from '../util';
-//import firestore from '../firestoreReducer'
+import firebase from '../../components/Firestore'
 //import * as ReactRedux from 'react-redux';
 import { useSelector } from 'react-redux';
 //import { useFirestore } from 'react-redux-firebase'
 import { useFirestoreConnect } from 'react-redux-firebase';
+import { firestore } from 'firebase';
  
 const compare = {
   lowestprice: (a, b) => {
@@ -20,46 +23,58 @@ const compare = {
   }
 };
 
-useFirestoreConnect([{collection:'products'}]);
-const products = useSelector((state) => state.firestore.data.products);
+//const firestore = useFirestore()
+// useFirestoreConnect('products');
+// const products = useSelector((state) => state.firestore.data.products);
 //const firestore = getFirestore()
-//console.log(products);
+// console.log(products);
 
-export const fetchProducts = (filters, search, sortBy, callback) => dispatch => {
+export const fetchProducts = (filters, search, sortBy, callback,productID) =>  {
  
-  return products &&
-  products.map((product) => (
-      console.log(product)
-    ));
-    //firestore.collection('products')
-    //.get()
-    // .then(querySnapshot => {
-    //   const products  = querySnapshot.docs.map(doc => doc.data());
-    //   console.log(products);
-      // if (!!filters && filters.length > 0) {
-      //   products = products.filter(p =>
-      //     filters.find(f => p.availableSizes.find(size => size === f))
-      //   );
-      // }
+    
+    return (dispatch, getState, { getFirestore }) => {
+      const firestore = getFirestore()
+    firestore().collection('products').doc(productID).get()
+    .then((doc) => {
+      const data = doc.data()
+      if(doc.exists){
+        dispatch({ type: FETCH_PRODUCTS ,payload: data }) 
+       }else{
+        console.log('does not exist')
+       }
 
-      // if (!!search) {
-      //   products = products.filter(p => p.title.toLowerCase().indexOf(search.toLowerCase()) !== -1);
-      // }
+      
+     
+      // .then(querySnapshot => {
+      //   const productsRef  = querySnapshot.docs.map(doc => doc.data());
+      //   console.log(productsRef);
+     
+      if (!!filters && filters.length > 0) {
+        data = data.filter(p =>
+          filters.find(f => p.availableSizes.find(size => size === f))
+        );
+      }
 
-      // if (!!sortBy) {
-      //   products = products.sort(compare[sortBy]);
-      // }
+      if (!!search) {
+        data = data.filter(p => p.title.toLowerCase().indexOf(search.toLowerCase()) !== -1);
+      }
 
-      // if (!!callback) {
-      //   callback();
-      // }
+      if (!!sortBy) {
+        data = data.sort(compare[sortBy]);
+      }
 
-      return dispatch({
-        type: FETCH_PRODUCTS,
-        payload: products
-      });
-    //})
-    // .catch(err => {
-    //   console.log('Could not fetch products. Try again later.');
-    // });
+      if (!!callback) {
+        callback();
+      }
+
+      
+      // return dispatch({
+      //   type: FETCH_PRODUCTS,
+      //   payload: products
+      // });
+    })
+    .catch(err => {
+      console.log('Could not fetch products. Try again later.');
+    });
+    }  
 };

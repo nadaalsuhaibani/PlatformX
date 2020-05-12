@@ -1,17 +1,7 @@
-// import firebase from 'firebase';
-
-import * as firebase from "firebase/app";
+import firebase from 'firebase/app';
 import "firebase/auth";
+import "firebase/firestore";
 
-
-// var admin = require("firebase-admin");
-//
-// var serviceAccount = require("path/to/serviceAccountKey.json");
-//
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: "https://x-project-1.firebaseio.com"
-// });
 
 // Your app's Firebase configuration
 const firebaseConfig = {
@@ -26,6 +16,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+firebase.firestore();
 
-// Finally, export it to use it throughout your app
 export default firebase;
