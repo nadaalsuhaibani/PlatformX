@@ -1,4 +1,5 @@
-import  firebase from "../../components/Firestore";
+
+import { useFirebase, useFirestore } from "react-redux-firebase";
 import {
   SIGNUP_SUCCESS,
   SIGNUP_ERROR,
@@ -11,6 +12,7 @@ import {
   RESET_ERROR
 } from "./actionTypes";
 import { beginApiCall, apiCallError } from "./apiStatus";
+import firebase from "../../Firestore";
 
 // Signing up with Firebase
 export const signup = (email, password) => async dispatch => {
@@ -27,7 +29,9 @@ export const signup = (email, password) => async dispatch => {
       .then(dataAfterEmail => {
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
-            // Sign up successful
+            firebase.firestore().collection("users").doc(user.uid).set({
+              fname: "hi"
+            });
             dispatch({
               type: SIGNUP_SUCCESS,
               payload:
@@ -72,6 +76,7 @@ export const signin = (email, password, callback) => async dispatch => {
         if (data.user.emailVerified) {
           console.log("IF", data.user.emailVerified);
           dispatch({ type: SIGNIN_SUCCESS });
+          console.log('after dispatch');
           callback();
         } else {
           console.log("ELSE", data.user.emailVerified);
@@ -91,33 +96,6 @@ export const signin = (email, password, callback) => async dispatch => {
   } catch (err) {
     dispatch(apiCallError());
     dispatch({ type: SIGNIN_ERROR, payload: "Invalid login credentials" });
-  }
-};
-
-// Signing out with Firebase
-export const signout = () => async dispatch => {
-  try {
-    console.log("beginning logout");
-    dispatch(beginApiCall());
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        dispatch({ type: SIGNOUT_SUCCESS });
-      })
-      .catch(() => {
-        dispatch(apiCallError());
-        dispatch({
-          type: SIGNOUT_ERROR,
-          payload: "Error, we were not able to log you out. Please try again."
-        });
-      });
-  } catch (err) {
-    dispatch(apiCallError());
-    dispatch({
-      type: SIGNOUT_ERROR,
-      payload: "Error, we were not able to log you out. Please try again."
-    });
   }
 };
 

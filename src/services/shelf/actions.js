@@ -2,8 +2,8 @@ import { FETCH_PRODUCTS } from './actionTypes';
 import { getFirestore } from 'redux-firestore'
 
 import axios from 'axios';
+
 import { productsAPI } from '../util';
-import firebase from '../../components/Firestore'
 //import * as ReactRedux from 'react-redux';
 import { useSelector } from 'react-redux';
 //import { useFirestore } from 'react-redux-firebase'
@@ -38,7 +38,7 @@ export const fetchProducts = (filters, search, sortBy, callback,productID) =>  {
     .then((doc) => {
       const data = doc.data()
       if(doc.exists){
-        dispatch({ type: FETCH_PRODUCTS ,payload: data }) 
+        dispatch({ type: FETCH_PRODUCTS , data }) 
        }else{
         console.log('does not exist')
        }

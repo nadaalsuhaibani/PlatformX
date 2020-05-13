@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import firebase from './components/Firestore'
+import firebase from './Firestore'
 import Store from './services/store';
 import { createFirestoreInstance } from 'redux-firestore'
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase'

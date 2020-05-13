@@ -14,7 +14,7 @@ const useForm = (loginFunction, validate, isReset) => {
       loginFunction();
 
       // Cleaning inputs after signup/in
-      setCredentials({ email: "", password: "" });
+      setCredentials({ email: "", password: ""});
 
       // Now that the form has been submitted we set isSubmitting back to false
       // This prevents the form being submitted again and again each time useEffect is activated

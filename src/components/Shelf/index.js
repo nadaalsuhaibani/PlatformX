@@ -78,14 +78,14 @@ class Shelf extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchProducts: (id) => { dispatch(fetchProducts(id))}
+    fetchProducts: () => { dispatch(fetchProducts())}
   }
  }
 const mapStateToProps = (state )=> {
   //const product5= state.firestore.ordered.products
    console.log(state);
   return{
-  products: state.firestore.ordered.products,
+  products: state.firestore.ordered,
   filters: state.filters.items,
   sort: state.sort.type
 }}

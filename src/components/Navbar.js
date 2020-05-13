@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
-import { signout } from "../services/login/auth";
-import {connect} from "react-redux";
-import {compose} from "redux";
+import { isLoaded, isEmpty, useFirebase } from 'react-redux-firebase';
+import { useSelector } from 'react-redux'
 
-class Navbar extends Component {
-
-  render() {
+const Navbar = () => {
+    const firebase = useFirebase();
+    const auth = useSelector(state => state.firebase.auth);
 
     const userLinks = (
-        <a href="/" onClick={() => this.props.signout()}>Logout</a>
+        <a href="/" onClick={() => firebase.logout()}>Logout</a>
     );
 
     const guestLinks = (
@@ -21,28 +20,14 @@ class Navbar extends Component {
         <div className="header-right">
           <Link to="/">Home</Link>
           <Link to="/">About</Link>
-          { !this.props.auth.isEmpty ? userLinks : guestLinks }
+          { !isLoaded(auth)
+            ? <span>Loading...</span>
+            : !isEmpty(auth) ? userLinks : guestLinks }
         </div>
       </div>
     )
   }
-}
 
-function mapStateToProps(state) {
-  return {
-    auth: state.firebaseReducer.auth
-  };
-}
 
-function mapDispatchToProps(dispatch) {
-  return {
-    signout: () => dispatch(signout())
-  };
-}
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
-)(Navbar);
+export default Navbar;
