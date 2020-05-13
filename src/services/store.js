@@ -3,7 +3,7 @@ import rootReducer from './reducers';
 import {  getFirestore } from 'redux-firestore'
 import thunk from 'redux-thunk';
 //import  firebase from "../components/Firestore";
-
+//test
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const middleware = [thunk.withExtraArgument({getFirestore})];
 
