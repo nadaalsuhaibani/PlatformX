@@ -14,7 +14,7 @@ import firebase from "./Firestore";
 import {BrowserRouter as Router} from "react-router-dom";
 
 const rrfConfig = {
-  userProfile: "users",
+  userProfile: 'products',
   useFirestoreForProfile: true,
 };
 

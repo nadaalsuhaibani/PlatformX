@@ -44,13 +44,8 @@ Product.propTypes = {
   addProductToSaved: PropTypes.func.isRequired,
   addProductToCart: PropTypes.func.isRequired
 };
-const mapStateToProps = (state) => {
-  return {
-    getProductsdata: state.getProducts
-  }
- }
 
 export default connect(
-  mapStateToProps,
+  null,
   { addProductToSaved, addProductToCart }
 )(Product);

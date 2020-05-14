@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase'
-import { compose } from 'redux'
 
 import { fetchProducts } from '../../services/shelf/actions';
 
@@ -21,8 +19,7 @@ class Shelf extends Component {
   };
 
   state = {
-    isLoading: false,
-    search: ''
+    isLoading: false
   };
 
   componentDidMount() {
@@ -31,8 +28,8 @@ class Shelf extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { filters: nextFilters, sort: nextSort } = nextProps;
-    const { filters } = this.props;
-    if (nextFilters.length !== filters.length) {
+
+    if (nextFilters !== this.props.filters) {
       this.handleFetchProducts(nextFilters, undefined);
     }
 
@@ -41,20 +38,12 @@ class Shelf extends Component {
     }
   }
 
-  updateSearch (event) {
-    this.setState({ search: event.target.value });
-    this.setState({ isLoading: true });
-    this.props.fetchProducts(undefined, event.target.value, undefined, () => {
-      this.setState({ isLoading: false });
-    });
-  };
-
   handleFetchProducts = (
     filters = this.props.filters,
     sort = this.props.sort
   ) => {
     this.setState({ isLoading: true });
-    this.props.fetchProducts(filters, undefined, sort, () => {
+    this.props.fetchProducts(filters, sort, () => {
       this.setState({ isLoading: false });
     });
   };
@@ -67,7 +56,6 @@ class Shelf extends Component {
       <React.Fragment>
         {isLoading && <Spinner />}
         <div className="shelf-container">
-          <input type="text" placeholder="Search Abayas" defaultValue={this.state.search} onChange={this.updateSearch.bind(this)}/>
           <ShelfHeader productsLength={products.length} />
           <ProductList products={products} />
         </div>
@@ -76,21 +64,13 @@ class Shelf extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchProducts: () => { dispatch(fetchProducts())}
-  }
- }
-const mapStateToProps = (state )=> {
-  //const product5= state.firestore.ordered.products
-   console.log(state);
-  return{
-  products: state.firestore.ordered,
+const mapStateToProps = state => ({
+  products: state.shelf.products,
   filters: state.filters.items,
   sort: state.sort.type
-}}
+});
 
-export default  compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect()
- )(Shelf);
+export default connect(
+  mapStateToProps,
+  { fetchProducts }
+)(Shelf);
