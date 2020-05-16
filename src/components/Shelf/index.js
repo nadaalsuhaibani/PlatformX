@@ -19,7 +19,8 @@ class Shelf extends Component {
   };
 
   state = {
-    isLoading: false
+    isLoading: false,
+    search: ''
   };
 
   componentDidMount() {
@@ -38,12 +39,20 @@ class Shelf extends Component {
     }
   }
 
+  updateSearch (event) {
+    this.setState({ search: event.target.value });
+    this.setState({ isLoading: true });
+    this.props.fetchProducts(undefined, event.target.value, undefined, () => {
+      this.setState({ isLoading: false });
+    });
+  };
+
   handleFetchProducts = (
     filters = this.props.filters,
     sort = this.props.sort
   ) => {
     this.setState({ isLoading: true });
-    this.props.fetchProducts(filters, sort, () => {
+    this.props.fetchProducts(filters, undefined, sort, () => {
       this.setState({ isLoading: false });
     });
   };
@@ -56,6 +65,7 @@ class Shelf extends Component {
       <React.Fragment>
         {isLoading && <Spinner />}
         <div className="shelf-container">
+          <input type="text" placeholder="Search Abayas" defaultValue={this.state.search} onChange={this.updateSearch.bind(this)}/>
           <ShelfHeader productsLength={products.length} />
           <ProductList products={products} />
         </div>

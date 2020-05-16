@@ -13,7 +13,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-//firebase.firestore().settings({ timestampsInSnapshots: true });
-firebase.firestore();
+firebase.firestore().settings({ timestampsInSnapshots: true });
+firebase.auth().onAuthStateChanged(async user => {
+  if (!user) {
+    await firebase.auth().signInAnonymously();
+  }
+});
 
 export default firebase;

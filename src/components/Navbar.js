@@ -22,7 +22,7 @@ const Navbar = () => {
           <Link to="/">About</Link>
           { !isLoaded(auth)
             ? <span>Loading...</span>
-            : !isEmpty(auth) ? userLinks : guestLinks }
+            : !isEmpty(auth.email) ? userLinks : guestLinks }
         </div>
       </div>
     )
