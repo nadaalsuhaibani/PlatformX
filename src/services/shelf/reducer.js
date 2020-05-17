@@ -1,39 +1,39 @@
 
+// import { FETCH_PRODUCTS } from './actionTypes';
+
+// const initialState = {
+//   products: []
+// };
+
+// export default function(state = initialState, action) {
+//   switch (action.type) {
+//     case FETCH_PRODUCTS:
+//       return {
+//         ...state,
+//         products: action.payload
+//       };
+//     default:
+//       return state;
+//   }
+// }
+//------------
 import { FETCH_PRODUCTS } from './actionTypes';
 
 const initialState = {
   products: []
 };
 
-export default function(state = initialState, action) {
+const shelfReducer = (state = initialState, action) => {
+  const {products} = action
   switch (action.type) {
     case FETCH_PRODUCTS:
-      return {
+      return [
         ...state,
-        products: action.payload
-      };
+         
+        products
+      ];
     default:
-      return state;
+      return state
   }
 }
-//------------
-// import { FETCH_PRODUCTS } from './actionTypes';
-
-// // const initialState = {
-// //   products: []
-// // };
-
-// const shelfReducer = (state = {}, action) => {
-//   const {data} = action
-//   switch (action.type) {
-//     case FETCH_PRODUCTS:
-//       return [
-//         ...state,
-//         data 
-//        // products: action.payload
-//       ];
-//     default:
-//       return state
-//   }
-// }
-// export default shelfReducer
+export default shelfReducer

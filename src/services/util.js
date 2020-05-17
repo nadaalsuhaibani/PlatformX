@@ -9,4 +9,4 @@ export const formatPrice = (x, currency) => {
 
 // export const productsAPI =
    //'https://x-project-1.firebaseio.com/products';
-export const productsAPI = "http://localhost:8001/api/products";
+//export const productsAPI = "http://localhost:8001/api/products";

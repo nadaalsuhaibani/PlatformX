@@ -13,7 +13,7 @@ import {ReactReduxFirebaseProvider} from "react-redux-firebase";
 import firebase from "./Firestore";
 import {BrowserRouter as Router} from "react-router-dom";
 
-const rrfConfig = {
+ const rrfConfig = {
   userProfile: 'products',
   useFirestoreForProfile: true,
 };
@@ -22,7 +22,7 @@ const rrfProps = {
   firebase,
   config: rrfConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance, //since we are using Firestore
+  createFirestoreInstance //since we are using Firestore
 };
 
 ReactDOM.render(

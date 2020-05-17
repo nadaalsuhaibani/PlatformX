@@ -5,7 +5,10 @@ import { getFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
+const middleware = [
+  thunk.withExtraArgument( getFirestore )
+  // This is where you add other middleware like redux-observable
+];
 const initialState =
   JSON.parse(window.localStorage.getItem('state')) || {};
 
@@ -13,7 +16,7 @@ const initialState =
     rootReducer,
     initialState,
     composeEnhancers(
-              applyMiddleware(thunk.withExtraArgument({getFirestore}))
+              applyMiddleware(...middleware)
                   )
              
   );
