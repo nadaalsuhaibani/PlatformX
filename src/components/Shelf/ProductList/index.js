@@ -1,14 +1,26 @@
 import React from 'react';
-
+import { useSelector } from 'react-redux';
+import { useFirestoreConnect, useFirestore } from 'react-redux-firebase';
 import Product from './Product';
+import PropTypes from 'prop-types';
 
-const ProductList = ({ products }) => {
+
+export default function ProductList() {
+  useFirestoreConnect([
+    { collection: "products" }
+  ]);
+  const products = useSelector(state => state.firestore.ordered.products);
+  //const firestore = useFirestore();
+
   return products.map(p => {
-    return <Product product={p} key={p.id} />;
-  });
+     return <Product product={p} key={p.id} />;
+  })
+  
 };
-
-export default ProductList;
+ProductList.propTypes = {
+  firestore: PropTypes.object,
+}
+//export default ProductList;
 //-------------------
 // import React from 'react';
 // import { connect } from 'react-redux';
