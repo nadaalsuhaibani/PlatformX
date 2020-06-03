@@ -9,7 +9,7 @@ import { addProductToSaved } from '../../../../services/saved/actions';
 import { addProductToCart } from '../../../../services/cart/actions';
 
 const Product = ({ product, addProductToSaved, addProductToCart }) => {
-  product.quantity = 1;
+  //product.quantity = 1;
 
   let formattedPrice = formatPrice(product.price, product.currencyId);
 
