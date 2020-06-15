@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loadSaved, removeProduct, changeProductQuantity } from '../../services/saved/actions';
 import SavedProduct from './SavedProduct';
+import {firebaseConnect, isEmpty, isLoaded} from 'react-redux-firebase'
 
 import './style.scss';
+import {compose} from "redux";
+import Loading from "../Loading";
 
 class FloatSavedItems extends Component {
   static propTypes = {
@@ -19,6 +22,9 @@ class FloatSavedItems extends Component {
   state = {
     isOpen: false
   };
+  componentDidMount() {
+    loadSaved(this.props.auth.id)
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.newProduct !== this.props.newProduct) {
@@ -30,7 +36,9 @@ class FloatSavedItems extends Component {
     }
   }
 
+
   openFloatCart = () => {
+    loadSaved(this.props.auth.id);
     this.setState({ isOpen: true });
   };
 
@@ -39,7 +47,7 @@ class FloatSavedItems extends Component {
   };
 
   addProduct = product => {
-    const { savedProducts, updateSaved } = this.props;
+    const { savedProducts } = this.props;
     let productAlreadyInCart = false;
 
     savedProducts.forEach(cp => {
@@ -65,8 +73,12 @@ class FloatSavedItems extends Component {
   };
 
   render() {
+    if (!isLoaded(this.props.auth) || isEmpty(this.props.auth.email))
+       return (<Loading/>);
+    this.props.loadSaved(this.props.auth.uid);
+    if (!this.props.savedProducts)
+      return (<Loading/>);
     const { savedProducts, removeProduct } = this.props;
-
     const products = savedProducts.map(p => {
       return (
         <SavedProduct product={p} removeProduct={removeProduct} key={p.id} />
@@ -111,11 +123,6 @@ class FloatSavedItems extends Component {
 
           <div className="float-saved__shelf-container">
             {products}
-            {!products.length && (
-              <p className="shelf-empty">
-          empty <br />
-              </p>
-            )}
           </div>
         </div>
       </div>
@@ -123,13 +130,17 @@ class FloatSavedItems extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps =( state) => ({
+  auth: state.firebase.auth,
   savedProducts: state.saved.products,
   newProduct: state.saved.productToAdd,
   productToRemove: state.saved.productToRemove,
+
 });
 
-export default connect(
-  mapStateToProps,
-  { loadSaved, removeProduct, changeProductQuantity }
+export default compose(
+  connect(
+    mapStateToProps,
+    { loadSaved, removeProduct, changeProductQuantity }),
+  firebaseConnect(),
 )(FloatSavedItems);

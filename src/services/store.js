@@ -1,21 +1,19 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import rootReducer from './reducers';
 import { getFirebase } from 'react-redux-firebase';
-import { getFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const initialState =
-  JSON.parse(window.localStorage.getItem('state')) || {};
+const initialState = window && window.__INITIAL_STATE__;
+const middlewares = [
+  thunk.withExtraArgument(getFirebase)];
 
   const store = createStore(
     rootReducer,
     initialState,
-    composeEnhancers(
-              applyMiddleware(thunk.withExtraArgument({getFirestore}))
-                  )
-             
+    compose(
+      applyMiddleware(...middlewares),
+    )
   );
 
 store.subscribe(() => {

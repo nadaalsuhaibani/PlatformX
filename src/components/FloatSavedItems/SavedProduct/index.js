@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import Thumb from './../../Thumb';
 import { formatPrice } from '../../../services/util';
+import {compose} from "redux";
+import {firebaseConnect} from "react-redux-firebase";
+import {connect} from "react-redux";
 
 class SavedProduct extends Component {
   static propTypes = {
@@ -29,7 +32,7 @@ class SavedProduct extends Component {
   render() {
     const { removeProduct } = this.props;
     const { product } = this.state;
-
+    const userId = this.props.auth.uid;
     const classes = ['shelf-item'];
 
     if (!!this.state.isMouseOver) {
@@ -42,7 +45,7 @@ class SavedProduct extends Component {
           className="shelf-item__del"
           onMouseOver={() => this.handleMouseOver()}
           onMouseOut={() => this.handleMouseOut()}
-          onClick={() => removeProduct(product)}
+          onClick={() => removeProduct(userId, product)}
         />
         <Thumb
           classes="shelf-item__thumb"
@@ -62,5 +65,12 @@ class SavedProduct extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
+});
 
-export default SavedProduct;
+export default compose(
+  firebaseConnect(),
+  connect(
+    mapStateToProps
+  ))(SavedProduct);

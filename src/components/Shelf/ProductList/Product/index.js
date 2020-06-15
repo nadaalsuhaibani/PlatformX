@@ -1,21 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import heartIcon from '../../../../static/heartIcon.png';
 import Thumb from '../../../Thumb';
 import { formatPrice } from '../../../../services/util';
 import { addProductToSaved } from '../../../../services/saved/actions';
 import { addProductToCart } from '../../../../services/cart/actions';
+import { useFirestore} from "react-redux-firebase";
 
 const Product = ({ product, addProductToSaved, addProductToCart }) => {
   //product.quantity = 1;
+  useFirestore();
+  const auth = useSelector(state => state.firebase.auth);
 
   let formattedPrice = formatPrice(product.price, product.currencyId);
 
   return (
     <div className="shelf-item">
       <img
-        onClick={() => addProductToSaved(product)}
+        onClick={() => addProductToSaved(auth.uid, product)}
         data-sku={product.sku}
         className="shelf-stopper"
         src={heartIcon}
