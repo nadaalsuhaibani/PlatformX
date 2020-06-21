@@ -31,7 +31,7 @@ export default function productPage({match :{params :{id}}}){
         { collection: `products`, doc: id, storeAs: 'product' }
     ]);
 
-    const product = useSelector(({ firestore: { ordered } }) => ordered.products && ordered.products[0]);
+    const product = useSelector(({ firestore: { ordered } }) => ordered.products && ordered.products[id]);
     console.log(product)
 
     if (!product) return <Spinner/>;
