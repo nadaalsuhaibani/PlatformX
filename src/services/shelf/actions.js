@@ -72,8 +72,6 @@ export const fetchProducts = (filters, search, sortBy, callback,productID) =>  {
     
     return (dispatch, getState, { getFirestore }) => {
       const firestore = getFirestore()
-
-    //  firestore.get({ collection: 'cities' , doc: productID })
     firestore.collection('products').doc(productID).get()
     .then((doc) => {
       if(doc.exists){

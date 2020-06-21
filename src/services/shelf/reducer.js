@@ -29,7 +29,6 @@ const shelfReducer = (state = initialState, action) => {
     case FETCH_PRODUCTS:
       return [
         ...state,
-         
         products
       ];
     default:

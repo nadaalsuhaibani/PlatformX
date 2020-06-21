@@ -7,11 +7,11 @@ import Thumb from '../../../Thumb';
 import { formatPrice } from '../../../../services/util';
 import { addProductToSaved } from '../../../../services/saved/actions';
 import { addProductToCart } from '../../../../services/cart/actions';
-
+import {Link} from "react-router-dom";
 const Product = ({ product, addProductToSaved, addProductToCart }) => {
-  //product.quantity = 1;
-
+ // product.quantity = 1;
   let formattedPrice = formatPrice(product.price, product.currencyId);
+   
 
   return (
     <div className="shelf-item">
@@ -21,11 +21,15 @@ const Product = ({ product, addProductToSaved, addProductToCart }) => {
         className="shelf-stopper"
         src={heartIcon}
         alt="heart icon"/>
-      <Thumb
+        <Link to={`/productpage/${ product.id }`}>
+        {/* <Link to="/productpage"> */}
+        <Thumb
         classes="shelf-item__thumb"
         src={require(`../../../../static/products/${product.sku}_1.jpg`)}
         alt={product.title}
       />
+        </Link>
+      
       <p className="shelf-item__title">{product.title}</p>
       <div className="shelf-item__price">
         <div className="val">

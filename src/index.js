@@ -1,4 +1,4 @@
-//import 'babel-polyfill'
+import 'babel-polyfill'
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -7,9 +7,7 @@ import Root from './Root';
 
 import './index.scss';
 import {rrfProps} from "./Firestore";
-//import store from "./services/store";
 import {ReactReduxFirebaseProvider} from "react-redux-firebase";
-
 import {BrowserRouter as Router} from "react-router-dom";
 
  

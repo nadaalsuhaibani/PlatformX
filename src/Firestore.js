@@ -16,7 +16,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-//firebase.firestore().settings({ timestampsInSnapshots: true });
 firebase.firestore();
 const rrfConfig = {
   userProfile: 'products',
